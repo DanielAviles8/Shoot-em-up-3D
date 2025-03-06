@@ -9,11 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e4dd5f697bdd4642b450194eb367ffa, type: 3}
-  m_Name: Pikachu
+  m_Script: {fileID: 11500000, guid: 88a6d088e6924cb4dbb1c7574da2be59, type: 3}
+  m_Name: Pistol
   m_EditorClassIdentifier: 
-  arrayPos: 0
-  name: Pikachu
-  description: Pika Pika
-  idNumber: 16
-  Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  weaponName: Pistol
+  weaponNumber: 1
+  weaponDamage: 10
+  maxDistance: 50
+  currentAmmo: 10
+  magSize: 10
+  fireRate: 2
+  reloadTime: 1
+  reloading: 0
