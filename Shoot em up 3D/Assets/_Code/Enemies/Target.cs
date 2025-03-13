@@ -13,8 +13,4 @@ public class Target : MonoBehaviour, IDamageable
             gameObject.SetActive(false);
         }
     }
-    public void Update()
-    {
-        Debug.Log(health);
-    }
 }

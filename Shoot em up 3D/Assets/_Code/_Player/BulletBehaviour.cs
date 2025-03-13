@@ -6,6 +6,11 @@ public class BulletBehaviour : MonoBehaviour
 {
     [SerializeField] private float bulletSpeed = 20f;
     [SerializeField] private WeaponInfo _weaponInfo;
+    public WeaponController _weaponController
+    {
+        get;
+        set;
+    }
     // Start is called before the first frame update
     private void Update()
     {
@@ -13,13 +18,12 @@ public class BulletBehaviour : MonoBehaviour
     }
     private void OnTriggerEnter(Collider collision)
     {
-        Debug.Log("Bullet collided with: " + collision.gameObject.name);
-
         IDamageable damageable = collision.GetComponent<IDamageable>();
         if (damageable != null)
         {
-            Debug.Log("Applying damage: " + _weaponInfo.weaponDamage);
             damageable.DoDamage(_weaponInfo.weaponDamage);
+            Debug.Log(_weaponController.gameObject.name);
+            _weaponController.ReturnBulelt(gameObject);
         }
     }
 }

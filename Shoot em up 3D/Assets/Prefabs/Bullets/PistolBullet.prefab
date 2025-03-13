@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5189302313514731023}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.01, y: 0.749, z: 1.96}
+  m_LocalRotation: {x: -0, y: 0.4605914, z: -0, w: 0.8876123}
+  m_LocalPosition: {x: -0.9902446, y: 0.830005, z: -2.9366195}
   m_LocalScale: {x: 0.36, y: 0.36, z: 0.36}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -120,3 +120,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletSpeed: 15
   _weaponInfo: {fileID: 11400000, guid: 3c0b02ad10b539345b2c18f252f655f8, type: 2}
+  _weaponController: {fileID: 0}
