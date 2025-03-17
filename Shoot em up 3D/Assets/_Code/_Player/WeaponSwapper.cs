@@ -17,7 +17,7 @@ public class WeaponSwapper : MonoBehaviour
     private WeaponController weaponController2;
     private WeaponController weaponController3;
 
-    private static int currentGun;
+    public static int currentGun;
 
     private void OnDestroy()
     {

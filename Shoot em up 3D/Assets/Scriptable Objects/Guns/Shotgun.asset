@@ -16,8 +16,8 @@ MonoBehaviour:
   weaponNumber: 3
   weaponDamage: 25
   maxDistance: 50
-  currentAmmo: 5
-  magSize: 5
+  currentAmmo: 0
+  magSize: 6
   fireRate: 3
   reloadTime: 3
   reloading: 0

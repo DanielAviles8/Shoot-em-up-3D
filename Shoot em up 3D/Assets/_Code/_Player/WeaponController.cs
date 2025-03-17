@@ -19,6 +19,11 @@ public class WeaponController : MonoBehaviour
     private Queue<GameObject> bulletPool = new Queue<GameObject>();
     private Queue<GameObject> missingBullet = new Queue<GameObject>();
 
+    [SerializeField] private Transform Shotgun1;
+    [SerializeField] private Transform Shotgun2;
+    [SerializeField] private Transform Shotgun3;
+    [SerializeField] private Transform Shotgun4;
+    [SerializeField] private Transform Shotgun5;
     private void OnDestroy()
     {
         _inputActions.Player.Shoot.performed -= ShootGun;
@@ -63,12 +68,56 @@ public class WeaponController : MonoBehaviour
         if (_weaponInfo.currentAmmo > 0 && gameObject.activeInHierarchy)
         {
             Debug.Log("Shooting");
-            GameObject bullet = GetBullet();
-            bullet.transform.position = firePoint.position;
-            bullet.transform.rotation = firePoint.rotation;
-            _weaponInfo.currentAmmo--;
+            if(WeaponSwapper.currentGun == 3)
+            {
+                GameObject bullet0 = GetBullet();
+                bullet0.transform.position = firePoint.position;
+                bullet0.transform.rotation = firePoint.rotation;
+                Debug.Log("Bala 0");
+                missingBullet.Enqueue(bullet0);
+
+                GameObject bullet1 = GetBullet();
+                bullet1.transform.position = Shotgun1.position; 
+                bullet1.transform.rotation = Shotgun1.rotation;
+                Debug.Log("Bala 1");
+                missingBullet.Enqueue(bullet1);
+
+                GameObject bullet2 = GetBullet();
+                bullet2.transform.position = Shotgun2.position;
+                bullet2.transform.rotation = Shotgun2.rotation;
+                Debug.Log("Bala 2");
+                missingBullet.Enqueue(bullet2);
+
+                GameObject bullet3 = GetBullet();
+                bullet3.transform.position = Shotgun3.position;
+                bullet3.transform.rotation = Shotgun3.rotation;
+                Debug.Log("Bala 0");
+                missingBullet.Enqueue(bullet3);
+
+                GameObject bullet4 = GetBullet();
+                bullet4.transform.position = Shotgun4.position;
+                bullet4.transform.rotation = Shotgun4.rotation;
+                Debug.Log("Bala 1");
+                missingBullet.Enqueue(bullet4);
+
+                GameObject bullet5 = GetBullet();
+                bullet5.transform.position = Shotgun5.position;
+                bullet5.transform.rotation = Shotgun5.rotation;
+                Debug.Log("Bala 2");
+                missingBullet.Enqueue(bullet5);
+
+                _weaponInfo.currentAmmo = _weaponInfo.currentAmmo - 6;
+
+            }
+            else if(WeaponSwapper.currentGun == 1 || WeaponSwapper.currentGun == 2)
+            {
+                GameObject bullet = GetBullet();
+                bullet.transform.position = firePoint.position;
+                bullet.transform.rotation = firePoint.rotation;
+                _weaponInfo.currentAmmo--;
+                missingBullet.Enqueue(bullet);
+            }
             timeSinceLastShoot = 0;
-            missingBullet.Enqueue(bullet);
         }
     }
     public GameObject GetBullet()
