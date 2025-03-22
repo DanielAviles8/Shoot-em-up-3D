@@ -118,5 +118,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ec6b1e3029703b4392a462475d6a65a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 10
+  bulletSpeed: 25
   _weaponInfo: {fileID: 11400000, guid: b71182e6f6816474bb69abae3955bf3c, type: 2}

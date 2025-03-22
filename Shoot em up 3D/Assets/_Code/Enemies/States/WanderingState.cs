@@ -7,8 +7,7 @@ public class WanderingState : EnemyState
     public WanderingState(Enemy controller) : base(controller) { }
     public override void OnEnter()
     {
-        Debug.Log("Entrando a Wanderlandia");
-        Debug.Log(Controller.gameObject.name);
+        Controller.EnteringWanderingState();
     }
     public override void Update()
     {

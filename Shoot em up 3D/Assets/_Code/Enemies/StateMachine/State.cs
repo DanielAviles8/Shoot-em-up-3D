@@ -12,6 +12,10 @@ public abstract class State : IState
     {
 
     }
+    public virtual void FixedUpdate()
+    {
+
+    }
     public virtual void OnExit()
     {
 

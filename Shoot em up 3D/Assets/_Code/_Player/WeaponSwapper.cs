@@ -33,6 +33,7 @@ public class WeaponSwapper : MonoBehaviour
         weaponController1 = Gun1.GetComponent<WeaponController>();
         weaponController2 = Gun2.GetComponent<WeaponController>();
         weaponController3 = Gun3.GetComponent<WeaponController>();
+        currentGun = 1;
     }
 
     private void Prepare()

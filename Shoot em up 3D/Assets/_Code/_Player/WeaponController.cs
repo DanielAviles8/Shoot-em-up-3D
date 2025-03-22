@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using TMPro;
 
 public class WeaponController : MonoBehaviour
 {
@@ -24,6 +26,8 @@ public class WeaponController : MonoBehaviour
     [SerializeField] private Transform Shotgun3;
     [SerializeField] private Transform Shotgun4;
     [SerializeField] private Transform Shotgun5;
+
+    [SerializeField] private TextMeshProUGUI bulletRemaining;
     private void OnDestroy()
     {
         _inputActions.Player.Shoot.performed -= ShootGun;
@@ -32,6 +36,8 @@ public class WeaponController : MonoBehaviour
 
     private void Start()
     {
+        bulletRemaining.text = _weaponInfo.currentAmmo.ToString();
+        _weaponInfo.reloading = false;
         _weaponInfo.currentAmmo = _weaponInfo.magSize;
         Prepare();
         /*for(int i = 0; i < bulletPool.Count; i++)
@@ -67,7 +73,6 @@ public class WeaponController : MonoBehaviour
     {
         if (_weaponInfo.currentAmmo > 0 && gameObject.activeInHierarchy)
         {
-            Debug.Log("Shooting");
             if(WeaponSwapper.currentGun == 3)
             {
                 GameObject bullet0 = GetBullet();
@@ -107,7 +112,6 @@ public class WeaponController : MonoBehaviour
                 missingBullet.Enqueue(bullet5);
 
                 _weaponInfo.currentAmmo = _weaponInfo.currentAmmo - 6;
-
             }
             else if(WeaponSwapper.currentGun == 1 || WeaponSwapper.currentGun == 2)
             {
@@ -151,7 +155,6 @@ public class WeaponController : MonoBehaviour
         _weaponInfo.reloading = true;
         yield return new WaitForSeconds(_weaponInfo.reloadTime);
         var missingBullets = _weaponInfo.magSize-_weaponInfo.currentAmmo;
-        Debug.Log(missingBullets);
         for(int i = 0; i < missingBullets; i++)
         {
             //GameObject bullet = Instantiate(bulletPrefab);
@@ -170,7 +173,7 @@ public class WeaponController : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(bulletPool.Count);
+        bulletRemaining.text = _weaponInfo.currentAmmo.ToString();
         timeSinceLastShoot += Time.deltaTime;
         Debug.DrawRay(transform.position, transform.forward);
         if (_weaponInfo.reloading == false)

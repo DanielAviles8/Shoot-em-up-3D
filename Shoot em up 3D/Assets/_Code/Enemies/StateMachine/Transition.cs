@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Transition : ITransition
 {
-    public IState TargetState { get; }
+    public IState To { get; }
     public IPredicate Condition { get; }
 
-    public Transition (IState targetState, IPredicate condition)
+    public Transition(IState to, IPredicate condition)
     {
-        TargetState = targetState;
+        To = to;
         Condition = condition;
     }
 }

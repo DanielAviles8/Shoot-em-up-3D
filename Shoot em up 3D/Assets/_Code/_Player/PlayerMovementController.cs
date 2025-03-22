@@ -33,11 +33,14 @@ public class PlayerMovementController : MonoBehaviour
     {
         _inputVector = _inputActions.Player.Movement.ReadValue<Vector2>();
         _mouseDirection = _inputActions.Player.FaceTo.ReadValue<Vector2>();
+        MovePLayer();
     }
     private void FixedUpdate()
     {
-        MovePLayer();
-        PlayerFacingTo();
+        if (CameraBehaviour._inCinematic==false)
+        {
+            PlayerFacingTo();
+        }
     }
     private void Prepare()
     {
@@ -48,6 +51,10 @@ public class PlayerMovementController : MonoBehaviour
     {
         Vector3 horizontalVelocity = (Vector3.right * _inputVector.x + Vector3.forward * _inputVector.y) * _moveSpeed;
         _characterController.Move(horizontalVelocity * Time.deltaTime);
+
+        Vector3 fixedPosition = transform.position;
+        fixedPosition.y = 0.79f;
+        transform.position = fixedPosition;
     }
     void PlayerFacingTo()
     {

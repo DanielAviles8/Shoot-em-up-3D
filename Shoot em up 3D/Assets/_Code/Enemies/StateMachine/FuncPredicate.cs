@@ -1,12 +1,12 @@
 using System;
 public class FuncPredicate : IPredicate
 {
-    private readonly Func<bool> _func;
+    readonly Func<bool> func;
 
     public FuncPredicate(Func<bool> func)
     {
-        this._func = func;
+        this.func = func;
     }
 
-    public bool Evaluate() => _func.Invoke();
+    public bool Evaluate() => func.Invoke();
 }

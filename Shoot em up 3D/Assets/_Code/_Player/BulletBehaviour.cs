@@ -14,7 +14,10 @@ public class BulletBehaviour : MonoBehaviour
     // Start is called before the first frame update
     private void Update()
     {
-        transform.Translate(Vector3.forward * bulletSpeed * Time.deltaTime);
+        if(this.gameObject.name != "Torpedo")
+        {
+            transform.Translate(Vector3.forward * bulletSpeed * Time.deltaTime);
+        }
     }
     private void OnTriggerEnter(Collider collision)
     {

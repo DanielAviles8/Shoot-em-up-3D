@@ -7,14 +7,14 @@ public class AttackState : EnemyState
     public AttackState(Enemy controller) : base(controller) { }
     public override void OnEnter()
     {
-        Debug.Log("Entering Attack State");
+        Controller.EnteringAttackState();
     }
     public override void Update()
     {
-
+        Controller.UpdatingAttackState();
     }
     public override void OnExit()
     {
-
+        Controller.ExitingAttackState();
     }
 }
