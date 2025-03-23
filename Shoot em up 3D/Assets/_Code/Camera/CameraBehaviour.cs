@@ -17,7 +17,7 @@ public class CameraBehaviour : MonoBehaviour
     [SerializeField] private Transform _targetTransform;
     [SerializeField] private float _lerpSpeed = 1f;
     [SerializeField] private float _targetDistanceZ = -6f;
-    [SerializeField] private float _targetDistanceY = 340f;
+    [SerializeField] private float _targetDistanceY = 20f;
 
     [SerializeField] private Vector3 _targetPosition;
 

@@ -28,6 +28,8 @@ public class WeaponController : MonoBehaviour
     [SerializeField] private Transform Shotgun5;
 
     [SerializeField] private TextMeshProUGUI bulletRemaining;
+
+    public Slider reloadSlider;
     private void OnDestroy()
     {
         _inputActions.Player.Shoot.performed -= ShootGun;
@@ -39,6 +41,7 @@ public class WeaponController : MonoBehaviour
         bulletRemaining.text = _weaponInfo.currentAmmo.ToString();
         _weaponInfo.reloading = false;
         _weaponInfo.currentAmmo = _weaponInfo.magSize;
+        reloadSlider.gameObject.SetActive(false);
         Prepare();
         /*for(int i = 0; i < bulletPool.Count; i++)
         {
@@ -147,19 +150,39 @@ public class WeaponController : MonoBehaviour
         if (!_weaponInfo.reloading && gameObject.activeInHierarchy)
         {
             StartCoroutine(Reload());
+            reloadSlider.gameObject.SetActive(true);
         }
     }
-
+    public void ReloadEmptyGun()
+    {
+        if(_weaponInfo.reloading == false && gameObject.activeInHierarchy && _weaponInfo.currentAmmo == 0)
+        {
+            StartCoroutine(Reload());
+            reloadSlider.gameObject.SetActive(true);
+        }
+    }
     public IEnumerator Reload()
     {
         _weaponInfo.reloading = true;
-        yield return new WaitForSeconds(_weaponInfo.reloadTime);
-        var missingBullets = _weaponInfo.magSize-_weaponInfo.currentAmmo;
-        for(int i = 0; i < missingBullets; i++)
+        float elapsedTime = 0f;
+        float reloadTime = _weaponInfo.reloadTime;
+
+        reloadSlider.value = 0f;
+
+        while (elapsedTime < reloadTime)
         {
-            //GameObject bullet = Instantiate(bulletPrefab);
-            //bullet.SetActive(false);
-            //bulletPool.Enqueue(bulletPrefab);
+            elapsedTime += Time.deltaTime;
+            reloadSlider.value = Mathf.Clamp01(elapsedTime / reloadTime); // Normaliza el progreso
+            yield return null;
+        }
+
+        reloadSlider.value = 1f; // Asegura que el valor final sea 1
+        reloadSlider.gameObject.SetActive(false);
+
+        // Manejo de las balas
+        var missingBullets = _weaponInfo.magSize - _weaponInfo.currentAmmo;
+        for (int i = 0; i < missingBullets; i++)
+        {
             var spentBullet = missingBullet.Dequeue();
             ReturnBulelt(spentBullet);
         }
@@ -167,6 +190,7 @@ public class WeaponController : MonoBehaviour
         {
             bulletPool.Dequeue();
         }
+
         _weaponInfo.currentAmmo = _weaponInfo.magSize;
         _weaponInfo.reloading = false;
     }
@@ -179,7 +203,9 @@ public class WeaponController : MonoBehaviour
         if (_weaponInfo.reloading == false)
         {
             StopCoroutine(Reload());
+            reloadSlider.gameObject.SetActive(false);
         }
+        ReloadEmptyGun();
     }
 
     public void StopReloading()
