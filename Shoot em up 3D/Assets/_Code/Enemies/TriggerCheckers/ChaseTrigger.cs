@@ -7,6 +7,11 @@ public class ChaseTrigger : MonoBehaviour
     public static bool Chase = false;
     public GameObject Player;
 
+    private void Awake()
+    {
+        Player = GameObject.FindGameObjectWithTag("Player");
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject == Player)

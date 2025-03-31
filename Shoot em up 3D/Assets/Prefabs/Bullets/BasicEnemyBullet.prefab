@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 148079109812995432}
   - component: {fileID: 5059650206841713473}
   - component: {fileID: 2368290320425217545}
-  - component: {fileID: -7867440089095718085}
+  - component: {fileID: -7741770080237019073}
   m_Layer: 0
   m_Name: BasicEnemyBullet
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,18 +95,18 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-7867440089095718085
+--- !u!114 &-7741770080237019073
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,7 +115,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4682077381391100083}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ec6b1e3029703b4392a462475d6a65a, type: 3}
+  m_Script: {fileID: 11500000, guid: 432b4416adbc87944bec69daf9ab2192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bulletSpeed: 20

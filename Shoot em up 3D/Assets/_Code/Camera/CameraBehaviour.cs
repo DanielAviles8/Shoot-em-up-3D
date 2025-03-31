@@ -20,10 +20,12 @@ public class CameraBehaviour : MonoBehaviour
     [SerializeField] private float _targetDistanceY = 20f;
 
     [SerializeField] private Vector3 _targetPosition;
+    [SerializeField] private GameObject GamePanel;
 
     // Start is called before the first frame update
     void Start()
     {
+        GamePanel.SetActive(false);
         _inCinematic = true;
         StartCoroutine(Cinematic());
     }
@@ -31,13 +33,13 @@ public class CameraBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(_inCinematic);
         if (_inCinematic)
         {
             Cinematic();
         }
         else
         {
+            GamePanel.SetActive(true);
             GameplayCamera();
         }
     }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class WeaponSwapper : MonoBehaviour
 {
@@ -16,6 +17,11 @@ public class WeaponSwapper : MonoBehaviour
     private WeaponController weaponController1;
     private WeaponController weaponController2;
     private WeaponController weaponController3;
+
+    [SerializeField] private Image DefaultIcon;
+    [SerializeField] private Sprite GunIcon1;
+    [SerializeField] private Sprite GunIcon2;
+    [SerializeField] private Sprite GunIcon3;
 
     public static int currentGun;
 
@@ -34,6 +40,7 @@ public class WeaponSwapper : MonoBehaviour
         weaponController2 = Gun2.GetComponent<WeaponController>();
         weaponController3 = Gun3.GetComponent<WeaponController>();
         currentGun = 1;
+        DefaultIcon.sprite = GunIcon1;
     }
 
     private void Prepare()
@@ -50,6 +57,7 @@ public class WeaponSwapper : MonoBehaviour
         Gun2.SetActive(false);
         Gun3.SetActive(false);
         currentGun = 1;
+        DefaultIcon.sprite = GunIcon1;
 
         StopAllReloads();
         weaponController1.gameObject.SetActive(true); 
@@ -61,6 +69,7 @@ public class WeaponSwapper : MonoBehaviour
         Gun2.SetActive(true);
         Gun3.SetActive(false);
         currentGun = 2;
+        DefaultIcon.sprite = GunIcon2;
 
         StopAllReloads();
         weaponController2.gameObject.SetActive(true);
@@ -71,6 +80,7 @@ public class WeaponSwapper : MonoBehaviour
         Gun2.SetActive(false);
         Gun3?.SetActive(true);
         currentGun = 3;
+        DefaultIcon.sprite = GunIcon3;
 
         StopAllReloads();
         weaponController3.gameObject.SetActive(true); 

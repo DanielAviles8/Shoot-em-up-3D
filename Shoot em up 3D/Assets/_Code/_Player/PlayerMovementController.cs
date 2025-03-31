@@ -33,7 +33,11 @@ public class PlayerMovementController : MonoBehaviour
     {
         _inputVector = _inputActions.Player.Movement.ReadValue<Vector2>();
         _mouseDirection = _inputActions.Player.FaceTo.ReadValue<Vector2>();
-        MovePLayer();
+        
+        if(CameraBehaviour._inCinematic == false)
+        {
+            MovePLayer();
+        }
     }
     private void FixedUpdate()
     {

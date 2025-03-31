@@ -97,10 +97,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -147,7 +147,6 @@ MonoBehaviour:
   _health: 50
   _weaponInfo: {fileID: 11400000, guid: 1bb4f45435634c249be763a194de00b9, type: 2}
   _agent: {fileID: 2592318372887234804}
-  Player: {fileID: 0}
   EnemyTorpedoBulletPrefab: {fileID: 4682077381391100083, guid: 74eaff01961d4b14098da7b604e1aa3b, type: 3}
 --- !u!54 &5077629519897400119
 Rigidbody:

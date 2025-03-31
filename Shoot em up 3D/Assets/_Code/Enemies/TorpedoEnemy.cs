@@ -40,7 +40,7 @@ public class TorpedoEnemy : MonoBehaviour, IDamageable
     }
     public void DoDamage(float damage)
     {
-        _health = damage;
+        _health -= damage;
         if(_health <= 0)
         {
             gameObject.SetActive(false);

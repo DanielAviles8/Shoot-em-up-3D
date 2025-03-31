@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 using Unity.IO.LowLevel.Unsafe;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
+    private WaveSpawner waveSpawner;
     public StateMachine stateMachine;
     public float health;
+    public static bool death;
 
     [Header("Wandering")]
     public float RandomMovementRange = 5f;
@@ -29,19 +32,22 @@ public class Enemy : MonoBehaviour, IDamageable
     [SerializeField] private float _minDistance;
     [SerializeField] private Transform _firePoint;
     private bool attack;
+ 
 
     public void Start()
     {
+        waveSpawner = GetComponentInParent<WaveSpawner>();
+        Player = GameObject.FindGameObjectWithTag("Player");
         SetUpStateMachine();
+        death = false;
+
     }
     public void Update()
     {
         stateMachine.Update();
-        Debug.Log(ChaseTrigger.Chase);
     }
     public void EnteringWanderingState()
     {
-        Debug.Log("Wanderiando");
         _targetPos = GetRandomPointInCircle();
         agent.SetDestination(_targetPos);
     }
@@ -59,7 +65,6 @@ public class Enemy : MonoBehaviour, IDamageable
     }
     public void EnteringChasingState()
     {
-        Debug.Log("Persiguiendo");
         agent.SetDestination(Player.transform.position);
     }
     public void UpdatingChasingState()
@@ -76,7 +81,6 @@ public class Enemy : MonoBehaviour, IDamageable
     }
     public void EnteringAttackState()
     {
-        Debug.Log("Atacando");
         attack = true;
     }
     public void UpdatingAttackState()
@@ -128,6 +132,8 @@ public class Enemy : MonoBehaviour, IDamageable
         health -= damage;
         if (health <= 0)
         {
+            Debug.Log("Enemigo muerto");
+            death = true;
             gameObject.SetActive(false);
         }
     }
