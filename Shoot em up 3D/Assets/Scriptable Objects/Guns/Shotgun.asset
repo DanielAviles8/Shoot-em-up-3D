@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Shotgun
   weaponNumber: 3
-  weaponDamage: 25
+  weaponDamage: 40
   maxDistance: 50
-  currentAmmo: 0
+  currentAmmo: 6
   magSize: 6
   fireRate: 3
   reloadTime: 3

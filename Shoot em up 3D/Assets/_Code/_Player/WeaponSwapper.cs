@@ -27,7 +27,7 @@ public class WeaponSwapper : MonoBehaviour
 
     private void OnDestroy()
     {
-        _inputActions.Player.SwapGun1.performed -= SwapGun1;
+        _inputActions.Player.SwapGun1.performed -= SwapGun1;    
         _inputActions.Player.SwapGun2.performed -= SwapGun2;
         _inputActions.Player.SwapGun3.performed -= SwapGun3;
     }

@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: SMG
   weaponNumber: 2
-  weaponDamage: 5
+  weaponDamage: 10
   maxDistance: 50
-  currentAmmo: 50
-  magSize: 50
+  currentAmmo: 35
+  magSize: 35
   fireRate: 1
   reloadTime: 2
   reloading: 0

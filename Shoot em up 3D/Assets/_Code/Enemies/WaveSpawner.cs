@@ -6,6 +6,10 @@ public class WaveSpawner : MonoBehaviour
 {
     [SerializeField] private float _countdown;
     [SerializeField] private GameObject _spawnPoint;
+    [SerializeField] private GameObject GamePanel;
+    [SerializeField] public static bool Win = false;
+    [HideInInspector] public int EnemiesLeft;
+
 
     public Wave[] waves;
     public int currentWaveIndex = 0;
@@ -15,57 +19,70 @@ public class WaveSpawner : MonoBehaviour
     private void Start()
     {
         _readyToCountDown = true;
-        for (int i = 0; i < waves.Length; i++)
-        {
-            waves[i].EnemiesLeft = waves[i].enemies.Length;
-        }
+        EnemiesLeft = waves[currentWaveIndex].enemies.Length;
+        
     }
     private void Update()
     {
-        Debug.Log("Enemigos restantes" +  waves[currentWaveIndex].EnemiesLeft);
-        if (currentWaveIndex >= waves.Length - 1 && waves[currentWaveIndex].EnemiesLeft == 0)
-        {
-            Debug.Log("Ganaste");
-            return;
-        }
-        if(_readyToCountDown)
+        
+        Debug.Log(currentWaveIndex + "index");
+        Debug.Log(waves.Length + "Oleadas");
+        if (_readyToCountDown)
         {
             _countdown -= Time.deltaTime;
         }
 
-        if(_countdown <= 0)
+        if (_countdown <= 0)
         {
             _readyToCountDown = false;
             _countdown = waves[currentWaveIndex].TimeToNextWave;
             StartCoroutine(SpawnWave());
         }
 
-        if (waves[currentWaveIndex].EnemiesLeft == 0)
-        {
-            _readyToCountDown = true;
-            currentWaveIndex++;
-        }
-        DieEnemy();
     }
     private IEnumerator SpawnWave()
     {
+        
         if(currentWaveIndex < waves.Length)
         {
             for (int i = 0; i < waves[currentWaveIndex].enemies.Length; i++)
             {
                 Enemy enemy = Instantiate(waves[currentWaveIndex].enemies[i], _spawnPoint.transform);
+                enemy.waveSpawner = this;
                 enemy.transform.SetParent(null);
                 yield return new WaitForSeconds(waves[currentWaveIndex].TimeToNextEnemy);
             }
+            _readyToCountDown = false;
         }
     }
     public void DieEnemy()
     {
         if(Enemy.death)
         {
-            Debug.Log("EnemyDead");
-            waves[currentWaveIndex].EnemiesLeft--;
+            EnemiesLeft--;
             Enemy.death = false;
+        }
+    }
+    public void CountDeathEnemies()
+    {
+        EnemiesLeft--;
+        if (EnemiesLeft == 0)
+        {
+            currentWaveIndex++;
+
+            if (currentWaveIndex >= waves.Length)
+            {
+                Win = true;
+                GamePanel.SetActive(false);
+                Debug.Log("Ganaste");
+                return;
+            }
+            else
+            {
+                Debug.Log(waves[currentWaveIndex].enemies.Length);
+                EnemiesLeft = waves[currentWaveIndex].enemies.Length;
+                _readyToCountDown = true;
+            }
         }
     }
 }
@@ -77,5 +94,4 @@ public class Wave
     public float TimeToNextEnemy;
     public float TimeToNextWave;
 
-    [HideInInspector] public int EnemiesLeft;
 }

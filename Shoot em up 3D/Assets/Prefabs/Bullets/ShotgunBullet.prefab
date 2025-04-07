@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.01, y: 0.749, z: 1.96}
-  m_LocalScale: {x: 0.36, y: 0.36, z: 0.36}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -120,3 +120,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletSpeed: 25
   _weaponInfo: {fileID: 11400000, guid: b71182e6f6816474bb69abae3955bf3c, type: 2}
+  _prefabParticles: {fileID: 3965993210813847395, guid: 3deca921a1f653845b4c0c8029e1f7bc, type: 3}

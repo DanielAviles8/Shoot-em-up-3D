@@ -8,10 +8,11 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
-    private WaveSpawner waveSpawner;
+    public WaveSpawner waveSpawner { get; set; }
     public StateMachine stateMachine;
     public float health;
     public static bool death;
+
 
     [Header("Wandering")]
     public float RandomMovementRange = 5f;
@@ -32,11 +33,12 @@ public class Enemy : MonoBehaviour, IDamageable
     [SerializeField] private float _minDistance;
     [SerializeField] private Transform _firePoint;
     private bool attack;
+    private Collider _enemyCollider;
  
 
     public void Start()
     {
-        waveSpawner = GetComponentInParent<WaveSpawner>();
+        _enemyCollider = GetComponent<BoxCollider>();
         Player = GameObject.FindGameObjectWithTag("Player");
         SetUpStateMachine();
         death = false;
@@ -132,10 +134,38 @@ public class Enemy : MonoBehaviour, IDamageable
         health -= damage;
         if (health <= 0)
         {
-            Debug.Log("Enemigo muerto");
+            _enemyCollider.enabled = false;
             death = true;
-            gameObject.SetActive(false);
+            waveSpawner.CountDeathEnemies();
+            StartCoroutine(DeathAnimation());
         }
+    }
+
+    private IEnumerator DeathAnimation()
+    {
+        float duration = 1f;
+        float elapsed = 0f;
+
+        Quaternion initialRotation = transform.rotation;
+        Quaternion targetRotation = initialRotation * Quaternion.Euler(65f, 0f, 0f);
+
+        Vector3 initialPosition = transform.position;
+        Vector3 targetPosition = initialPosition + new Vector3(0f, -.05f, 0f);
+
+        while (elapsed < duration)
+        {
+            float t = elapsed / duration;
+            transform.rotation = Quaternion.Slerp(initialRotation, targetRotation, t);
+            transform.position = Vector3.Lerp(initialPosition, targetPosition, t);
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.rotation = targetRotation;
+        transform.position = targetPosition;
+
+        gameObject.SetActive(false);
     }
     private Vector3 GetRandomPointInCircle()
     {
