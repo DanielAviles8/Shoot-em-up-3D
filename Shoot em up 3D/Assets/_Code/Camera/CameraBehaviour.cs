@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
+using FirstGearGames.SmoothCameraShaker;
 
 public class CameraBehaviour : MonoBehaviour
 {
-    public TakeDamage takeDamage;
     [Header("Cinematic")]
     [SerializeField] private Transform _firstTransform;
     [SerializeField] private Transform _secondTransform;
@@ -17,50 +18,59 @@ public class CameraBehaviour : MonoBehaviour
     public static bool _inCinematic;
     public static bool _inMenu;
 
+    [Header("Gameplay")]
     [SerializeField] private Transform _targetTransform;
     [SerializeField] private float _lerpSpeed = 1f;
     [SerializeField] private float _targetDistanceZ = -15f;
     [SerializeField] private float _targetDistanceY = 20f;
 
     [SerializeField] private Vector3 _targetPosition;
-    [SerializeField] private GameObject Title;
     [SerializeField] private GameObject MainPanel;
+    [SerializeField] GameObject Title;
 
-
-    //public Animation anim;
-    private bool _wasInvulnerable = false;
-
-
+    [SerializeField] private ShakeData shakeData;
+    public CameraShaker Shaker;
     // Start is called before the first frame update
     void Start()
     {
-        //anim = GetComponent<Animation>();
-        //_inMenu = true;
-        _inCinematic = true;
-        PlayGame();
+        transform.position = _firstTransform.position;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        Shaker = GetComponent<CameraShaker>();
+        Time.timeScale = 0f;
+        _inMenu = true;
+        _inCinematic = false;
+        Title.SetActive(true);
     }
+
     // Update is called once per frame
     void Update()
     {    
-        if(/*_inMenu == false && */_inCinematic == false) 
+        if(_inCinematic == false && _inMenu == false) 
         {
             GameplayCamera();
-            //anim.Play("Shake");
         }   
     }
     public void PlayGame()
     {
+        Time.timeScale = 1f;
         _inMenu = false;
-        StartCoroutine(Cinematic());
+        _inCinematic = true;
         Title.SetActive(false);
+        StartCoroutine(Cinematic());
+        
         MainPanel.SetActive(false);
     }
-    private void GameplayCamera()
+
+    public void GameplayCamera()
     {
-        Title.SetActive(false);
         Vector3 targetPosition = _targetTransform.position + new Vector3(0f, _targetDistanceY, _targetDistanceZ);
 
         transform.position = Vector3.Lerp(transform.position, targetPosition, _lerpSpeed * Time.deltaTime);
+        if (TakeDamage._invulnerable)
+        {
+            CameraShakerHandler.Shake(shakeData);
+        }
     }
     public IEnumerator Cinematic()
     {

@@ -74,6 +74,7 @@ public class WeaponController : MonoBehaviour
 
     private void ShootGun(InputAction.CallbackContext ctx)
     {
+        if (CameraBehaviour._inMenu || CameraBehaviour._inCinematic) return;
         if (_weaponInfo.currentAmmo > 0 && gameObject.activeInHierarchy)
         {
             if(WeaponSwapper.currentGun == 3)
@@ -147,6 +148,7 @@ public class WeaponController : MonoBehaviour
     }
     public void ReloadGun(InputAction.CallbackContext ctx)
     {
+        if (CameraBehaviour._inMenu || CameraBehaviour._inCinematic) return;
         if (!_weaponInfo.reloading && gameObject.activeInHierarchy)
         {
             StartCoroutine(Reload());

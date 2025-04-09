@@ -8,7 +8,7 @@ using TMPro;
 public class TakeDamage : MonoBehaviour, IDamageable
 {
     [SerializeField] private float _health;
-    [SerializeField] public bool _invulnerable;
+    [SerializeField] public static bool _invulnerable;
     [SerializeField] private float _timer;
     [SerializeField] public static bool Death;
     [SerializeField] private TextMeshProUGUI healthRemaining;

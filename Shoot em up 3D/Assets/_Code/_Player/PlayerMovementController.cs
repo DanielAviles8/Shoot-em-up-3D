@@ -31,20 +31,21 @@ public class PlayerMovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (CameraBehaviour._inCinematic || CameraBehaviour._inMenu)
+            return;
+
         _inputVector = _inputActions.Player.Movement.ReadValue<Vector2>();
         _mouseDirection = _inputActions.Player.FaceTo.ReadValue<Vector2>();
 
-        if(CameraBehaviour._inCinematic == false && CameraBehaviour._inMenu == false)
-        {
-            MovePLayer();
-        }
+        MovePLayer();
     }
-    private void FixedUpdate()
+
+    void FixedUpdate()
     {
-        if (CameraBehaviour._inCinematic==false && CameraBehaviour._inMenu == false)
-        {
-            PlayerFacingTo();
-        }
+        if (CameraBehaviour._inCinematic || CameraBehaviour._inMenu)
+            return;
+
+        PlayerFacingTo();
     }
     private void Prepare()
     {

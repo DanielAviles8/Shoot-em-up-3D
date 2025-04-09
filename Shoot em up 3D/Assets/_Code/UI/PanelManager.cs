@@ -6,12 +6,16 @@ using UnityEngine.SceneManagement;
 public class PanelManager : MonoBehaviour
 {
     [SerializeField] GameObject MenuPanel;
+    [SerializeField] GameObject TutorialPanel;
     [SerializeField] GameObject GamePanel;
+    [SerializeField] GameObject OptionsPanel;
+    [SerializeField] GameObject CreditsPanel;
     [SerializeField] GameObject VictoryPanel;
     [SerializeField] GameObject DefeatPanel;
     // Start is called before the first frame update
     void Start()
     {
+        TutorialPanel.SetActive(false);
         GamePanel.SetActive(false);
         VictoryPanel.SetActive(false);
         DefeatPanel.SetActive(false);
@@ -19,7 +23,7 @@ public class PanelManager : MonoBehaviour
     }
     private void Update()
     {
-        if(CameraBehaviour._inCinematic == false)
+        if(CameraBehaviour._inMenu == false && CameraBehaviour._inCinematic == false)
         {
             GamePanel.SetActive(true);
         }
@@ -35,9 +39,31 @@ public class PanelManager : MonoBehaviour
         }
         
     }
+    public void Tutorial()
+    {
+        MenuPanel.SetActive(false);
+        TutorialPanel.SetActive(true);
+    }
+    public void Options()
+    {
+        MenuPanel.SetActive(false);
+        OptionsPanel.SetActive(true);
+    }
+    public void Credits()
+    {
+        MenuPanel.SetActive(false);
+        CreditsPanel.SetActive(true);
+    }
     public void WinGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public void BackButton()
+    {
+        TutorialPanel.SetActive(false);
+        OptionsPanel.SetActive(false);
+        CreditsPanel.SetActive(false);
+        MenuPanel.SetActive(true);
     }
     public IEnumerator WinScreen()
     {
