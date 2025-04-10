@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class WaveSpawner : MonoBehaviour
 {
@@ -9,6 +11,11 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField] private GameObject GamePanel;
     [SerializeField] public static bool Win = false;
     [HideInInspector] public int EnemiesLeft;
+
+    [SerializeField] private TextMeshProUGUI CurrentWave;
+    [SerializeField] private TextMeshProUGUI EnemiesLeftInWave;
+
+    private int _currentWave;
 
 
     public Wave[] waves;
@@ -24,7 +31,9 @@ public class WaveSpawner : MonoBehaviour
     }
     private void Update()
     {
-        
+        _currentWave = currentWaveIndex + 1;
+        CurrentWave.text = "Oleada # " + _currentWave;
+        EnemiesLeftInWave.text = "Enemigos " + EnemiesLeft;
         Debug.Log(currentWaveIndex + "index");
         Debug.Log(waves.Length + "Oleadas");
         if (_readyToCountDown)

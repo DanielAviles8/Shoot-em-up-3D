@@ -12,6 +12,9 @@ public class PanelManager : MonoBehaviour
     [SerializeField] GameObject CreditsPanel;
     [SerializeField] GameObject VictoryPanel;
     [SerializeField] GameObject DefeatPanel;
+
+    [SerializeField] GameObject Title;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +23,7 @@ public class PanelManager : MonoBehaviour
         VictoryPanel.SetActive(false);
         DefeatPanel.SetActive(false);
         MenuPanel.SetActive(true);
+        Title.SetActive(true);
     }
     private void Update()
     {
@@ -43,14 +47,17 @@ public class PanelManager : MonoBehaviour
     {
         MenuPanel.SetActive(false);
         TutorialPanel.SetActive(true);
+        Title.SetActive(false);
     }
     public void Options()
     {
+        Title.SetActive(true);
         MenuPanel.SetActive(false);
         OptionsPanel.SetActive(true);
     }
     public void Credits()
     {
+        Title.SetActive(true);
         MenuPanel.SetActive(false);
         CreditsPanel.SetActive(true);
     }
@@ -64,6 +71,11 @@ public class PanelManager : MonoBehaviour
         OptionsPanel.SetActive(false);
         CreditsPanel.SetActive(false);
         MenuPanel.SetActive(true);
+        Title.SetActive(true);
+    }
+    public void ExitGame()
+    {
+        Application.Quit();
     }
     public IEnumerator WinScreen()
     {

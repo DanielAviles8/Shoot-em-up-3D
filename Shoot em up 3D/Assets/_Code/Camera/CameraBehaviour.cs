@@ -26,7 +26,6 @@ public class CameraBehaviour : MonoBehaviour
 
     [SerializeField] private Vector3 _targetPosition;
     [SerializeField] private GameObject MainPanel;
-    [SerializeField] GameObject Title;
 
     [SerializeField] private ShakeData shakeData;
     public CameraShaker Shaker;
@@ -40,7 +39,6 @@ public class CameraBehaviour : MonoBehaviour
         Time.timeScale = 0f;
         _inMenu = true;
         _inCinematic = false;
-        Title.SetActive(true);
     }
 
     // Update is called once per frame
@@ -56,7 +54,6 @@ public class CameraBehaviour : MonoBehaviour
         Time.timeScale = 1f;
         _inMenu = false;
         _inCinematic = true;
-        Title.SetActive(false);
         StartCoroutine(Cinematic());
         
         MainPanel.SetActive(false);
